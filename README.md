@@ -1,8 +1,8 @@
 # Logic
 
     :l main.hs
-    Atom "A" || Atom "B"
-    Atom "A" && Atom "B"
-    Atom "A" ==> Atom "B"
-    Atom "A" <=> Atom "B"
-    (^) (Atom "A")
+    p && q
+    p || q
+    p ==> q
+    p <=> q
+    (^) p
