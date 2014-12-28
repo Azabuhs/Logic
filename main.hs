@@ -1,31 +1,4 @@
-module Main(module Prelude, (^), (&&), (||)) where
+import Logic
 
-import qualified Prelude as P
-import Prelude hiding ((^), (&&), (||))
+main = putStrLn "hello"
 
-data Logic = Atom String | Neg Logic | Or Logic Logic | And Logic Logic
-instance Show Logic where
-  show x = case x of
-    Atom a  -> a
-    Neg p   -> "￢" ++ show p
-    Or  p q -> "("++ show p ++ " ∨ " ++ show q ++ ")"
-    And p q -> "("++ show p ++ " ∧ " ++ show q ++ ")"
-
-p = Atom "p" :: Logic
-q = Atom "q" :: Logic
-r = Atom "r" :: Logic
-
-(^) :: Logic -> Logic
-(^) p = Neg p
-
-(||) :: Logic -> Logic -> Logic
-(||) p q = p `Or` q
-
-(&&) :: Logic -> Logic -> Logic
-(&&) p q = p `And` q
-
-(==>) :: Logic -> Logic -> Logic
-(==>) p q = (Neg p) `Or`  q
-
-(<=>) :: Logic -> Logic -> Logic
-(<=>) p q = ((Neg p) `Or` q) `And` (p `Or` (Neg q))
