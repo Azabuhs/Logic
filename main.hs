@@ -6,11 +6,13 @@ import Prelude hiding ((^), (&&), (||))
 data Logic = Atom String | Neg Logic | Or Logic Logic | And Logic Logic
 instance Show Logic where
   show x = case x of
-    Atom a  -> show a
+    Atom a  -> a
     Neg p   -> "￢" ++ show p
-    Or  p q -> show p ++ "∨" ++ show q
-    And p q -> show p ++ "∧" ++ show q 
-  
+    Or  p q -> show p ++ " ∨ " ++ show q
+    And p q -> show p ++ " ∧ " ++ show q
+
+p = Atom "p"
+q = Atom "q"
 
 (^) :: Logic -> Logic
 (^) p = Neg p
@@ -26,3 +28,4 @@ instance Show Logic where
 
 (<=>) :: Logic -> Logic -> Logic
 (<=>) p q = ((Neg p) `Or` q) `And` (p `Or` (Neg q))
+
