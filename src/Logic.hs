@@ -25,11 +25,6 @@ r = Atom "r" :: Logic
 (||) p q = Or [p, q]
 
 (&&) :: Logic -> Logic -> Logic
-(&&) = case x of
-T q = q
-(&&) p T = p
-(&&) F _ = F
-(&&) _ F = F
 (&&) p q = And [p, q]
 
 (==>) :: Logic -> Logic -> Logic
