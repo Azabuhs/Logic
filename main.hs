@@ -1,4 +1,5 @@
 import Logic
+import Prelude hiding ((^), (&&), (||))
 
-main = putStrLn "hello"
+main = mapM_ (putStrLn.show) [p && q && r, p || q || r, p ==> q]
 

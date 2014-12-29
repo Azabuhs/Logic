@@ -1,32 +1,29 @@
-module Logic(module Prelude, (^), (&&), (||)) where
+module Logic where
 
-import qualified Prelude as P
 import Prelude hiding ((^), (&&), (||))
-
-data Logic = Tautology | Paradox | Atom String | Neg Logic | Or Logic Logic | And Logic Logic
+import Data.List (intercalate)
+data Logic = T | F | Atom String | Neg Logic | Or [Logic] | And [Logic]
 
 instance Show Logic where
   show x = case x of
     Atom a  -> a
     Neg p   -> "￢" ++ show p
-    Or  p q -> "("++ show p ++ " ∨ " ++ show q ++ ")"
-    And p q -> "("++ show p ++ " ∧ " ++ show q ++ ")"
+    Or ps -> intercalate " ∨ " (map show ps)
+    And ps -> intercalate " ∧ " (map show ps)
 
 p = Atom "p" :: Logic
 q = Atom "q" :: Logic
 r = Atom "r" :: Logic
 
-t = Tautology :: Logic
-f = Paradox   :: Logic
 
 (^) :: Logic -> Logic
 (^) p = Neg p
 
 (||) :: Logic -> Logic -> Logic
-(||) p q = p `Or` q
+(||) p q = Or [p, q]
 
 (&&) :: Logic -> Logic -> Logic
-(&&) p q = p `And` q
+(&&) p q = And [p, q]
 
 (==>) :: Logic -> Logic -> Logic
 (==>) p q = (Neg p) ||  q
@@ -34,4 +31,3 @@ f = Paradox   :: Logic
 (<=>) :: Logic -> Logic -> Logic
 (<=>) p q = ((Neg p) || q) && (p || (Neg q))
 
-main = putStrLn "hello"

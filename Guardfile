@@ -27,5 +27,5 @@
 #   watch(%r{file/path}) { `command(s)` }
 #
 guard :shell do
-  watch(/main.hs/) {|m| `ghc main.hs` }
+  watch(/.hs/) {|m| `ghc main.hs; ./main` }
 end
